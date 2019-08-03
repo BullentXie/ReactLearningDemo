@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>refs</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    <div id="example"></div>
+</body>
+<script type="text/babel">
+    class Rng extends React.Component {
+        constructor (props) {
+            super(props)
+            this.state = {
+                stateOne: false,
+            }
+            this.chooseRng = this.chooseRng.bind(this);
+        }
+        chooseRng() {
+            let stateOne = !this.state.stateOne;
+            this.setState({stateOne});
+        }
+        render() {
+            let peo = this.state.stateOne ? 'Letme' : 'Xiaohu'
+            return (
+                <h2 onClick={this.chooseRng}>{peo}</h2>
+            )
+        }
+    }
+    ReactDOM.render(<Rng />, document.getElementById('example'));
+</script>
+</html>

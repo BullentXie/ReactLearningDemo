@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>componts-composing</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.js"></script>
+</head>
+<body>
+    <div id="big"></div>
+</body>
+
+<script type="text/babel">
+    class App extends React.Component {
+        render() {
+            let {person} = this.props;
+            return (
+                <div>
+                    {
+                        person.map((item, index) => {
+                            return <Welcome welcomedName={item} key={index} />
+                        })
+                    }
+                </div>
+            )
+        }
+    };
+    
+    // 从一个组件传值给另一个组件的方法，详见官方文档：https://reactjs.org/docs/components-and-props.html
+    class Welcome extends React.Component {
+        render() {
+            return (
+                <h2>Welcome {this.props.welcomedName}</h2>
+            )
+        }
+    };
+
+    let personDemo = ['Candy', 'Bullent', 'Mater'];
+    ReactDOM.render(<App person={personDemo} />, document.getElementById("big"));
+</script>
+
+</html>

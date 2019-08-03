@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>component-props</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <!-- 要使用开发版的prop-types才能在浏览器的控制台中有正常的报错提示！ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="props-example"></div>
+    
+</body>
+<script type="text/babel">
+    class Person extends React.Component {
+        render() {
+            return (
+                <ul>
+                    <li>姓名：{this.props.Name}</li>
+                    <li>性别：{this.props.Sex}</li>
+                    <li>年龄：{this.props.Age}</li>
+                </ul>
+            )
+        }
+    };
+    
+    //设置Person组件的props属性的必要性和传入的数据类型:(https://reactjs.org/docs/typechecking-with-proptypes.html)
+    //新版的React中不包含PropTypes，因此需要在项目中包含prop-types库
+    Person.propTypes = {
+        Name: PropTypes.string.isRequired,  //必须是string类型的数据且该props属性必须有值传入
+        Sex: PropTypes.string,      //必须是string类型的数据
+        Age: PropTypes.number,      //必须是number类型的数据
+    }
+
+    //设置Person组件的默认props属性值：
+    // Person.defaultProps = {
+    //     Name: "小明",
+    //     Sex: "男",
+    //     Age: 0,
+    // };
+
+    //模拟后端数据：
+    let personDemo = {name: "Candy", sex: "女", age: 17};
+
+    //在render方法中将后端的数据写入Person类的props属性中：
+    ReactDOM.render(<Person Name={personDemo.name} Sex={personDemo.sex} Age={personDemo.age} />, document.getElementById("props-example"));
+    
+    // // ... 三点运算符，会自动遍历运算符后面的对象的数据并放入相应的单位里，例如下一句中，三点运算符自动遍历了personDemo这一对象中所有的数据并将其放入了Person类的props属性中
+    // ReactDOM.render(<Person {...personDemo} />, document.getElementById("props-example"));
+    // // 但上述方法由于没有针对Person类定义其独有的变量名称，则在render方法中引用的数据变量名则需要与后端的变量名保持一致
+</script>
+</html>
